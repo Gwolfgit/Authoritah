@@ -1,0 +1,7 @@
+{
+    "domain": "example.com",
+    "subdomains": ["www", "login"],
+    "default_relay": "nyc",
+    "local_cache_expire": 300,
+    "dns_record_expires": 90
+}

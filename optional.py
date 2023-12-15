@@ -7,19 +7,17 @@ import redis.StrictRedis
 
 class LooseRedis:
     """
-    A drop-in replacement for the redis dependency. Stores data in (less persistent) memory.
+    A drop-in replacement for the redis dependency. Caches data in volatile memory.
     The methods mimic common Redis operations.
     """
 
-    def __init__(self,
-                 namespace: str = 'main',
-                 expire: Union[int, None] = None,
-                 preserve_expiration: Optional[bool] = False,
-                 **redis_kwargs: Any) -> None:
-        self.namespace = namespace + "-" + uuid4().hex
-        self.expire = expire
+    def __init__(self, *args, **kwargs) -> None:
         self.memory = {}
         self.expiry = {}
+        pass
+
+    def __call__(self, *args, **kwargs):
+        pass
 
     def set(self, formatted_key: str, store_value: Union[str, int, bytes], ex: int = None) -> None:
         """

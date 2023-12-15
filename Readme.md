@@ -43,6 +43,7 @@ To set up Authoritah with Tailscale, follow these steps:
     Python 3.6 or higher
     Required Python modules: orjson, redis_dict, loguru
     PowerDNS with Pipe backend
+    Redis (optional)
 
 ### Installation
 1) Clone the repository:
@@ -82,3 +83,9 @@ pdns_server
 # in tty 2
 dig @localhost www.example.com
 ```
+
+## Notes
+After publishing this, I realized that I had forgotten to mention that I used Redis as 
+a cache to prevent repeated blocking calls to tailscale. I quickly wrote up a drop-in replacement 
+for the redis dependency which allows you to cache in volatile memory instead of redis. Just in case.
+The file optional.py contains a class and a monkey patch redis.StrictRedis = LooseRedis.

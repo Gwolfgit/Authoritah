@@ -92,14 +92,18 @@ class InitState:
         self.factory = factory
 
     def query(self, query: list):
-        try:
-            _type, qname, qclass, qtype, _id, ip = query
-        except ValueError:
-            if query[0] == "HELO" and query[1] == "1":
-                self.factory.change_state(ConnectedState)
-                return fprint("OK\tPython backend firing up")
+        """
+        Processes the given query.
+        The only accepted query is "HELO 1", which changes the state to ConnectedState.
+        Any other query results in a failure response.
 
-        fprint("FAIL")
+        :param query: A list representing the query parameters.
+        """
+        if tuple(query[:2]) == ("HELO", "1"):
+            self.factory.change_state(ConnectedState)
+            return fprint("OK\tPython backend firing up")
+        else:
+            fprint("FAIL")
 
 
 class ConnectedState:

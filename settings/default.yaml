@@ -1,0 +1,5 @@
+nameserver:
+  defaults:
+    doh: https://doh.google.com/dns-query
+    dns: udp://1.1.1.1
+    tns: tail://100.100.100.100
